@@ -17,4 +17,8 @@ function listItems() {
     return Object.values(items)
 }
 
-module.exports = {createItem, listItems}
+function getItem() {
+    return items[id]
+}
+
+module.exports = {createItem, listItems, getItem}

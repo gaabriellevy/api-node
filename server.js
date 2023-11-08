@@ -15,6 +15,10 @@ app.get('/items', (request, response, next)=> {
     response.send(bd.listitems())
 })
 
+app.get('/items/:id', (request, response, next) => {
+    response.send(bd.getItem(request.params.id))
+})
+
 app.post('/items', (request, response, next)=> {
     const item = bd.createItem({
         nome: request.body.nome,
