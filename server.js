@@ -26,3 +26,11 @@ app.post('/items', (request, response, next)=> {
     })
     response.send(item)
 })
+
+app.delete('/items/:id', (request, response, next)=> {
+    try {
+        response.send(bd.deleteItem(request.params.id))
+    } catch (err) {
+        next(err)
+    }
+})

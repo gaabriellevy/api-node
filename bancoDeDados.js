@@ -21,4 +21,13 @@ function getItem() {
     return items[id]
 }
 
-module.exports = {createItem, listItems, getItem}
+function deleteItem(id) {
+    if(id in items) {
+        delete items[id]
+        return `item ${id} removido.`
+    }else {
+        throw new Error(`Item ${id} não existe!`)
+    }
+}
+
+module.exports = {createItem, listItems, getItem, deleteItem}
