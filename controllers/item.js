@@ -9,4 +9,9 @@ async function createItem(item) {
     return itemModel.create(item)
 }
 
-module.exports = {listItems, createItem}
+async function getItem(id_param) {
+    const item = await itemModel.findOne({where: {id: id_param}})
+    return item;
+}
+
+module.exports = {listItems, createItem, getItem}
