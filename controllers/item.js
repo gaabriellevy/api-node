@@ -8,3 +8,5 @@ async function listItems() {
 async function createItem(item) {
     return itemModel.create(item)
 }
+
+module.exports = {listItems, createItem}

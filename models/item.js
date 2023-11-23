@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const database = require('')
 
-const item = database.define('item', {
+const Item = database.define('item', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -11,6 +11,11 @@ const item = database.define('item', {
     nome: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    valor: {
+        type: Sequelize.DOUBLE
     }
 
 })
+
+module.exports = Item

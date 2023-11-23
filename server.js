@@ -1,7 +1,7 @@
 const port = 3335
 
 const express = require("express") // importa o framework express
-const db = require("./bancoDeDados") // importa o banco de dados
+const db = require("./database/db") // importa o banco de dados
 
 const app = express()
 
@@ -17,7 +17,10 @@ app.listen(port, () => { // escuta as requisições na porta declarada
 
 app.get('/items', (request, response, next)=> {
     itemController.listItems().then((items) => res.send())
-
+    .catch((err) => {
+        console.log('Erro na consulta', JSON.stringify(err))
+        return res.send(err)
+    })
     response.send(db.listitems())
 })
 
@@ -29,6 +32,11 @@ app.post('/items', (request, response, next)=> {
     const item = db.createItem({
         nome: request.body.nome,
         valor: request.body.valor
+    })
+    .then((item) => res.send(item))
+    .catch((err) => {
+        console.log('Erro no cadastro do item', JSON.stringify(err))
+        return res.status(400).send(err)
     })
     response.send(item)
 })

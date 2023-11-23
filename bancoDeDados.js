@@ -1,33 +1,35 @@
-const sequence = {
-    _id:0,
-    get id() {
-        return this._id++
-    }
+const database = require('./db')
+const Item = require('./models/item');
+
+let items = {};
+
+function createItem(item){
+    const resultado = database.sync();
+    console.log(resultado);
+
+    return Item.create(item);
 }
 
-const items = {}
-
-function createItem(item) {
-    item.id = sequence.id
-    items[item.id] = item
-    return item
-}
-
-function listItems() {
-    return Object.values(items)
-}
-
-function getItem() {
+function getItem(id){
     return items[id]
 }
 
-function deleteItem(id) {
-    if(id in items) {
+function deleteItem(id){
+
+    if(id in items){
         delete items[id]
-        return `item ${id} removido.`
-    }else {
-        throw new Error(`Item ${id} não existe!`)
+        return `Item ${id} removed`;
+    } else {
+        throw new Error(`Item ${id} not found!`);
     }
 }
 
-module.exports = {createItem, listItems, getItem, deleteItem}
+
+function listItems(){
+    const resultado = database.sync();
+    console.log(resultado);
+
+    return Item.findAll();
+}
+
+module.exports = {createItem, getItem, listItems, deleteItem}
