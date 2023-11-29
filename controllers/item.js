@@ -14,4 +14,22 @@ async function getItem(id_param) {
     return item;
 }
 
-module.exports = {listItems, createItem, getItem}
+async function deleteItem(id_param) {
+    await itemModel.destroy({
+        where: {
+            id: id_param
+        }
+    })
+}
+
+async function updateItem(id_param, item) {
+    item = await itemModel.update(item, {
+        where: {
+            id: id_param
+        }
+    });
+
+    return getItem(id_param)
+}
+
+module.exports = {listItems, createItem, getItem, deleteItem, updateItem}
